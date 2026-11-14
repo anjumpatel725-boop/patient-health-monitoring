@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Patient Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body
+    class="dashboard"
+    data-page="patient"
+>
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <div class="dashboard-brand">
+
+            <div class="logo-circle">
+                ♥
+            </div>
+
+            <div>
+
+                <h2>
+                    HealthCare
+                </h2>
+
+                <span>
+                    Patient Health Monitoring System
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="user-section">
+
+            <div class="user-name">
+
+                <strong id="userName">
+                    Patient
+                </strong>
+
+                <span>
+                    Patient
+                </span>
+
+            </div>
+
+
+            <button
+                onclick="logout()"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-content">
+
+        <div class="dashboard-title">
+
+            <h1>
+                Patient Health Dashboard
+            </h1>
+
+            <p>
+                Monitor your latest health readings and alerts.
+            </p>
+
+        </div>
+
+<!-- ASSIGNED DOCTOR -->
+
+<section class="panel" id="assignedDoctorSection">
+
+    <div class="panel-header">
+        <h2>My Assigned Doctor</h2>
+    </div>
+
+    <div id="assignedDoctorContent" class="assigned-doctor-content">
+
+        <p class="empty-state">
+            Loading assigned doctor...
+        </p>
+
+    </div>
+
+</section>
+        <h2>
+            Current Health Status
+        </h2>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+
+            <!-- HEART RATE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ♥
+                </div>
+
+                <h3>
+                    Heart Rate
+                </h3>
+
+                <p
+                    id="heartRate"
+                    class="stat-value"
+                >
+                    -- BPM
+                </p>
+
+            </div>
+
+
+            <!-- BLOOD PRESSURE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ♥
+                </div>
+
+                <h3>
+                    Blood Pressure
+                </h3>
+
+                <p
+                    id="bloodPressure"
+                    class="stat-value"
+                >
+                    --/--
+                </p>
+
+            </div>
+
+
+            <!-- TEMPERATURE -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌡
+                </div>
+
+                <h3>
+                    Temperature
+                </h3>
+
+                <p
+                    id="temperature"
+                    class="stat-value"
+                >
+                    -- °F
+                </p>
+
+            </div>
+
+
+            <!-- SPO2 -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ◉
+                </div>
+
+                <h3>
+                    SpO2
+                </h3>
+
+                <p
+                    id="oxygenLevel"
+                    class="stat-value"
+                >
+                    --%
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERT -->
+
+        <div
+            id="healthAlert"
+            class="alert-normal"
+        >
+            Loading health status...
+        </div>
+
+
+        <!-- RECENT READINGS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Recent Health Readings
+                </h2>
+
+            
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date &amp; Time
+                            </th>
+
+                            <th>
+                                Heart Rate
+                            </th>
+
+                            <th>
+                                Blood Pressure
+                            </th>
+
+                            <th>
+                                Temperature
+                            </th>
+
+                            <th>
+                                SpO2
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="healthTable">
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="empty-state"
+                            >
+                                Loading...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

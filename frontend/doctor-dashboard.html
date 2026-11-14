@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Doctor Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard" data-page="doctor">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+
+        <div class="dashboard-brand">
+
+            <div class="logo-circle">
+                ♥
+            </div>
+
+            <div>
+                <h2>HealthCare</h2>
+                <span>Patient Health Monitoring System</span>
+            </div>
+
+        </div>
+
+        <div class="user-section">
+
+            <div class="user-name">
+
+                <strong id="userName">
+                    Doctor
+                </strong>
+
+                <span>Doctor</span>
+
+            </div>
+
+            <button
+                onclick="logout()"
+                class="logout-btn"
+                type="button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="dashboard-content">
+
+        <div class="dashboard-title">
+
+            <h1>Doctor Dashboard</h1>
+
+            <p>
+                Monitor patient health status in real time.
+            </p>
+
+        </div>
+
+
+        <h2>Patient Overview</h2>
+
+
+        <!-- CLICKABLE STAT CARDS -->
+        <div class="stats">
+
+            <!-- TOTAL PATIENTS -->
+            <div
+                class="stat-card clickable-card"
+                role="button"
+                tabindex="0"
+                onclick="filterPatients('All')"
+                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); filterPatients('All'); }"
+                aria-label="Show all assigned patients"
+            >
+
+                <div class="stat-icon">
+                    ♟
+                </div>
+
+                <h3>Total Patients</h3>
+
+                <p
+                    id="totalPatients"
+                    class="stat-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- STABLE PATIENTS -->
+            <div
+                class="stat-card clickable-card"
+                role="button"
+                tabindex="0"
+                onclick="filterPatients('Stable')"
+                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); filterPatients('Stable'); }"
+                aria-label="Show stable patients"
+            >
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <h3>Stable</h3>
+
+                <p
+                    id="stablePatients"
+                    class="stat-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- ATTENTION PATIENTS -->
+            <div
+                class="stat-card clickable-card"
+                role="button"
+                tabindex="0"
+                onclick="filterPatients('Attention')"
+                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); filterPatients('Attention'); }"
+                aria-label="Show patients needing attention"
+            >
+
+                <div class="stat-icon">
+                    !
+                </div>
+
+                <h3>Attention</h3>
+
+                <p
+                    id="attentionPatients"
+                    class="stat-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <!-- CRITICAL PATIENTS -->
+            <div
+                class="stat-card clickable-card"
+                role="button"
+                tabindex="0"
+                onclick="filterPatients('Critical')"
+                onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); filterPatients('Critical'); }"
+                aria-label="Show critical patients"
+            >
+
+                <div class="stat-icon">
+                    ⚠
+                </div>
+
+                <h3>Critical</h3>
+
+                <p
+                    id="criticalPatients"
+                    class="stat-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRITICAL ALERT -->
+        <div
+            id="criticalAlert"
+            class="alert-normal"
+            role="status"
+            aria-live="polite"
+        >
+            Loading patient alerts...
+        </div>
+
+
+        <!-- PATIENT LIST -->
+        <section
+            class="panel"
+            id="patientListSection"
+        >
+
+            <div class="panel-header">
+
+                <div>
+                    <h2 id="patientListHeading">
+                        All Assigned Patients
+                    </h2>
+
+                    <p id="patientListDescription">
+                        Showing all patients assigned to you.
+                    </p>
+                </div>
+
+            
+
+            </div>
+
+
+            <!-- PATIENT TABLE -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Email</th>
+                            <th>Heart Rate</th>
+                            <th>Blood Pressure</th>
+                            <th>SpO2</th>
+                            <th>Temperature</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="patientTable">
+
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                Loading patients...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
