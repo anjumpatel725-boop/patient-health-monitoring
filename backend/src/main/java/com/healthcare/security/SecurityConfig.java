@@ -88,7 +88,13 @@ public class SecurityConfig {
     "/api/assignments/patient/me"
 ).authenticated()
 
-                // Deny every other API endpoint by default
+
+// Public health status only
+.requestMatchers("/actuator/health").permitAll()
+
+// Block all other Actuator endpoints
+.requestMatchers("/actuator/**").denyAll()
+// Deny every other API endpoint by default
                 .requestMatchers("/api/**").denyAll()
 
                 // Non-API routes remain unaffected

@@ -1,0 +1,8 @@
+﻿target/
+.local-secrets/
+data/
+*.log
+startup-error.txt
+.env
+.env.*
+!.env.example
