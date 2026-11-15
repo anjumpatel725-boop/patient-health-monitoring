@@ -1,7 +1,6 @@
-
 package com.healthcare.monitoring.dto;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public record HealthDataResponse(
         Long id,
@@ -11,6 +10,6 @@ public record HealthDataResponse(
         double diastolic,
         double temperature,
         double oxygenLevel,
-        LocalDateTime recordedAt
+        OffsetDateTime recordedAt
 ) {
 }

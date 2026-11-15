@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -178,7 +179,7 @@ public class VitalSignsSimulator {
                 moveToward(data.getOxygenLevel(), targetOxygen, 0.3));
 
         data.setPatient(patient);
-        data.setRecordedAt(LocalDateTime.now());
+        data.setRecordedAt(LocalDateTime.now(ZoneOffset.UTC));
 
         healthDataRepository.save(data);
 
@@ -232,3 +233,4 @@ public class VitalSignsSimulator {
         return Math.round(result * 10.0) / 10.0;
     }
 }
+

@@ -13,7 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -147,7 +148,7 @@ public class HealthDataController {
         }
 
         data.setPatient(patient);
-        data.setRecordedAt(LocalDateTime.now());
+        data.setRecordedAt(OffsetDateTime.now(ZoneOffset.UTC).toLocalDateTime());
 
         HealthData saved = healthRepository.save(data);
 
@@ -188,7 +189,7 @@ public class HealthDataController {
                 data.getDiastolic(),
                 data.getTemperature(),
                 data.getOxygenLevel(),
-                data.getRecordedAt()
+                data.getRecordedAt() == null ? null : data.getRecordedAt().atOffset(ZoneOffset.UTC)
         );
     }
 
@@ -199,3 +200,5 @@ public class HealthDataController {
                 .body(Map.of("message", message));
     }
 }
+
+

@@ -1,4 +1,4 @@
-﻿// =====================================================
+// =====================================================
 // HEALTHCARE MONITORING SYSTEM - FULL UPDATED SCRIPT
 // =====================================================
 
@@ -114,7 +114,16 @@ function formatDateTime(value) {
         return String(value);
     }
 
-    return date.toLocaleString();
+    return date.toLocaleString("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    });
 }
 
 function getStatusClass(status) {
@@ -427,7 +436,7 @@ async function loadPatientAssignedDoctor() {
 
         const icon = document.createElement("div");
         icon.className = "assigned-doctor-icon";
-        icon.textContent = "ðŸ‘¨â€âš•ï¸";
+        icon.textContent = "DOCTOR";
 
         const details = document.createElement("div");
         details.className = "assigned-doctor-details";
@@ -482,7 +491,7 @@ async function loadPatientHealth() {
         if (data.length === 0) {
             setText("heartRate", "-- BPM");
             setText("bloodPressure", "--/--");
-            setText("temperature", "-- Â°C");
+            setText("temperature", "-- °C");
             setText("oxygenLevel", "--%");
 
             const alertElement = document.getElementById("healthAlert");
@@ -515,7 +524,7 @@ async function loadPatientHealth() {
             "bloodPressure",
             `${latest.systolic ?? "--"}/${latest.diastolic ?? "--"}`
         );
-        setText("temperature", `${latest.temperature ?? "--"} Â°C`);
+        setText("temperature", `${latest.temperature ?? "--"} °C`);
         setText("oxygenLevel", `${latest.oxygenLevel ?? "--"}%`);
 
         const status = calculateHealthStatus(latest);
@@ -524,15 +533,15 @@ async function loadPatientHealth() {
         if (alertElement) {
             if (status === "Critical") {
                 alertElement.textContent =
-                    "ðŸš¨ Critical reading detected. Seek appropriate medical help.";
+                    "CRITICAL: Critical reading detected. Seek appropriate medical help.";
                 alertElement.className = "alert-critical";
             } else if (status === "Attention") {
                 alertElement.textContent =
-                    "âš ï¸ Your readings need attention. Please monitor them.";
+                    "WARNING: Your readings need attention. Please monitor them.";
                 alertElement.className = "alert-warning";
             } else {
                 alertElement.textContent =
-                    "âœ“ Latest reading is within the configured demo range.";
+                    "OK: Latest reading is within the configured demo range.";
                 alertElement.className = "alert-normal";
             }
         }
@@ -549,7 +558,7 @@ async function loadPatientHealth() {
                     formatDateTime(reading.recordedAt),
                     `${reading.heartRate ?? "--"} BPM`,
                     `${reading.systolic ?? "--"}/${reading.diastolic ?? "--"}`,
-                    `${reading.temperature ?? "--"} Â°C`,
+                    `${reading.temperature ?? "--"} °C`,
                     `${reading.oxygenLevel ?? "--"}%`
                 ];
 
@@ -682,7 +691,7 @@ function renderFilteredPatients() {
                 ? `${reading.systolic ?? "--"}/${reading.diastolic ?? "--"}`
                 : "--/--",
             reading ? `${reading.oxygenLevel ?? "--"}%` : "--",
-            reading ? `${reading.temperature ?? "--"} Â°C` : "--"
+            reading ? `${reading.temperature ?? "--"} °C` : "--"
         ];
 
         values.forEach(value => {
@@ -817,12 +826,12 @@ async function loadDoctorPatients() {
         if (alertElement) {
             if (criticalNames.length > 0) {
                 alertElement.textContent =
-                    `ðŸš¨ Critical Alert: ${criticalNames.join(", ")}`;
+                    `CRITICAL: Critical Alert: ${criticalNames.join(", ")}`;
                 alertElement.className = "alert-critical";
 
             } else if (attentionNames.length > 0) {
                 alertElement.textContent =
-                    `âš ï¸ Needs Attention: ${attentionNames.join(", ")}`;
+                    `WARNING: Needs Attention: ${attentionNames.join(", ")}`;
                 alertElement.className = "alert-warning";
 
             } else if (patients.some(patient => !patient.latestReading)) {
@@ -832,7 +841,7 @@ async function loadDoctorPatients() {
 
             } else {
                 alertElement.textContent =
-                    "âœ“ No critical or attention alerts in the latest readings.";
+                    "OK: No critical or attention alerts in the latest readings.";
                 alertElement.className = "alert-normal";
             }
         }
@@ -1187,7 +1196,7 @@ async function loadAdminVitalAlerts() {
 
         if (alerts.length === 0) {
             alertContainer.textContent =
-                "âœ“ No abnormal readings detected in the latest available data.";
+                "OK: No abnormal readings detected in the latest available data.";
             alertContainer.className = "alert-normal";
             return;
         }
@@ -1209,13 +1218,13 @@ async function loadAdminVitalAlerts() {
                 : "alert-warning";
 
             item.textContent =
-                `${alert.status === "Critical" ? "ðŸš¨" : "âš ï¸"} ` +
-                `${alert.patientName}: ${alert.status} â€” ` +
+                `${alert.status === "Critical" ? "CRITICAL:" : "WARNING:"} ` +
+                `${alert.patientName}: ${alert.status} - ` +
                 `HR ${alert.reading.heartRate ?? "--"} BPM, ` +
-                `Oâ‚‚ ${alert.reading.oxygenLevel ?? "--"}%, ` +
+                `O2 ${alert.reading.oxygenLevel ?? "--"}%, ` +
                 `BP ${alert.reading.systolic ?? "--"}/` +
                 `${alert.reading.diastolic ?? "--"}, ` +
-                `Temp ${alert.reading.temperature ?? "--"} Â°C`;
+                `Temp ${alert.reading.temperature ?? "--"} °C`;
 
             alertContainer.appendChild(item);
         });
@@ -1312,3 +1321,4 @@ if (page === "patient") {
         setInterval(loadAdminVitalAlerts, REFRESH_INTERVAL);
     }
 });
+
