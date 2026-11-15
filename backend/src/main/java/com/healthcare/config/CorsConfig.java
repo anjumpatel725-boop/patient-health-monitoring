@@ -1,4 +1,3 @@
-
 package com.healthcare.monitoring.config;
 
 import org.springframework.context.annotation.Bean;
@@ -19,19 +18,23 @@ public class CorsConfig {
 
                 registry
                     .addMapping("/api/**")
-                    .allowedOrigins("http://localhost:5173", "https://patient-health-moniitoring.vercel.app")
+                    .allowedOrigins(
+                        "http://localhost:5173",
+                        "https://patient-health-moniitoring.vercel.app",
+                        "https://patient-health-monitoring-frontend.onrender.com"
+                    )
                     .allowedMethods(
                         "GET",
                         "POST",
+                        "PUT",
+                        "PATCH",
+                        "DELETE",
                         "OPTIONS"
                     )
-                    .allowedHeaders(
-                        "Authorization",
-                        "Content-Type"
-                    )
+                    .allowedHeaders("*")
+                    .allowCredentials(true)
                     .maxAge(3600);
             }
         };
     }
 }
-
