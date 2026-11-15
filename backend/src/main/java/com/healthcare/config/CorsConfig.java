@@ -19,7 +19,7 @@ public class CorsConfig {
 
                 registry
                     .addMapping("/api/**")
-                    .allowedOrigins("http://localhost:5173")
+                    .allowedOrigins("http://localhost:5173", "https://patient-health-moniitoring.vercel.app")
                     .allowedMethods(
                         "GET",
                         "POST",
@@ -34,3 +34,4 @@ public class CorsConfig {
         };
     }
 }
+
