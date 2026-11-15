@@ -1,7 +1,8 @@
-﻿import { defineConfig } from "vite";
+import { defineConfig } from "vite";
 import { resolve } from "path";
 
 export default defineConfig({
+  base: "/patient-health-monitoring/",
   build: {
     rollupOptions: {
       input: {
