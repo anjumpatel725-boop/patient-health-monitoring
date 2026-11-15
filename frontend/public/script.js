@@ -436,7 +436,7 @@ async function loadPatientAssignedDoctor() {
 
         const icon = document.createElement("div");
         icon.className = "assigned-doctor-icon";
-        icon.textContent = "DOCTOR";
+        icon.textContent = "✚";
 
         const details = document.createElement("div");
         details.className = "assigned-doctor-details";
