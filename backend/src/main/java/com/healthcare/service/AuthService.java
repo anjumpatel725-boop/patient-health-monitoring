@@ -92,34 +92,37 @@ public class AuthService {
         return userRepository.save(doctor);
     }
 
-    public User login(LoginRequest request) {
+    
+public User login(LoginRequest request) {
 
-        User user = userRepository
-                .findByEmail(request.getEmail().trim())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.UNAUTHORIZED,
-                        "Invalid email or password"
-                ));
-
-        if (!passwordEncoder.matches(
-                request.getPassword(),
-                user.getPassword()
-        )) {
-            throw new ResponseStatusException(
+    User user = userRepository
+            .findByEmail(request.getEmail().trim())
+            .orElseThrow(() -> new ResponseStatusException(
                     HttpStatus.UNAUTHORIZED,
-                    "Invalid email or password"
-            );
-        }
+                    "Invalid email"
+            ));
 
-        if (user.getRole() == null ||
-                !user.getRole().equalsIgnoreCase(request.getRole())) {
-
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED,
-                    "Invalid email or password"
-            );
-        }
-
-        return user;
+    if (!passwordEncoder.matches(
+            request.getPassword(),
+            user.getPassword()
+    )) {
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid password"
+        );
     }
+
+    if (user.getRole() == null ||
+            request.getRole() == null ||
+            !user.getRole().equalsIgnoreCase(request.getRole().trim())) {
+
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid role selected"
+        );
+    }
+
+    return user;
+}
+
 }
